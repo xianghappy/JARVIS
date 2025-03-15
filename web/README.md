@@ -5,7 +5,8 @@
 - Web library [React](https://react.dev/learn)
 - Language [TypeScript](https://www.typescriptlang.org/docs/)
 - Web Framework [Remix](https://remix.org.cn/docs/en/main)
-- Component library [Material UI](https://mui.com/material-ui/)
+- React Component library [Material UI](https://mui.com/material-ui/)
+- React state management [Jotai](https://jotai.org/docs)
 
 ## Prerequisites
 
