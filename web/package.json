@@ -11,9 +11,8 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@mui/material": "^6.4.7",
+    "@mantine/core": "^7.17.2",
+    "@mantine/hooks": "^7.17.2",
     "@remix-run/node": "^2.16.0",
     "@remix-run/react": "^2.16.0",
     "@remix-run/serve": "^2.16.0",
