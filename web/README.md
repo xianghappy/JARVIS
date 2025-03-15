@@ -1,5 +1,12 @@
 # web
 
+## Based on
+
+- Web library [React](https://react.dev/learn)
+- Language [TypeScript](https://www.typescriptlang.org/docs/)
+- Web Framework [Remix](https://remix.org.cn/docs/en/main)
+- Component library [Material UI](https://mui.com/material-ui/)
+
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/zh-cn/download)
