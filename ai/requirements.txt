@@ -3,3 +3,4 @@ fastapi==0.95.1
 uvicorn==0.22.0
 dashscope==1.1.0  # 请根据实际版本号调整
 python-dotenv==1.0.0  # 如果你使用了 dotenv 加载环境变量
+openai==0.27.0  # 添加 openai 依赖项
