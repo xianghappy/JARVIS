@@ -4,6 +4,10 @@
       "path": "."
     },
     {
+      "path": "ai",
+      "name": "ai"
+    },
+    {
       "path": "web",
       "name": "web"
     }

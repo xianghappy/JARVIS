@@ -10,6 +10,7 @@
 - React 组件库 [Mantine](https://mantine.dev/getting-started/)
 - React 状态管理工具 [Jotai](https://www.jotai.com.cn/)
 - CSS 框架 [Tailwindcss](https://www.tailwindcss.cn/)
+- Http 客户端 [ky](https://github.com/sindresorhus/ky)
 
 ## 安装环境
 
