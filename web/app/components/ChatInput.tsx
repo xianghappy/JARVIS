@@ -1,17 +1,40 @@
 import { Button, TextInput } from "@mantine/core";
-import { memo } from "react";
+import clsx from "clsx";
+import { memo, useState } from "react";
 
 export interface ChatInputProps {
-  onSend: () => void;
+  value: string;
+  className?: string;
+  onChange: (value: string) => void;
+  onSend: () => Promise<void>;
 }
 
 export default memo(function ChatInput(props: ChatInputProps) {
-  const { onSend } = props;
+  const { value, className, onChange, onSend } = props;
+
+  const [sending, setSending] = useState(false);
 
   return (
-    <div className="flex-1 flex gap-2">
-      <TextInput className="flex-1" placeholder="Ask me anything" />
-      <Button onClick={onSend}>Send</Button>
+    <div className={clsx("flex gap-2", className)}>
+      <TextInput
+        className="flex-1"
+        placeholder="Ask me anything"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      />
+      <Button
+        onClick={async () => {
+          try {
+            setSending(true);
+            await onSend();
+          } finally {
+            setSending(false);
+          }
+        }}
+        loading={sending}
+      >
+        Send
+      </Button>
     </div>
   );
 });

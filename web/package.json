@@ -16,11 +16,14 @@
     "@remix-run/node": "^2.16.0",
     "@remix-run/react": "^2.16.0",
     "@remix-run/serve": "^2.16.0",
+    "clsx": "^2.1.1",
     "isbot": "^4.4.0",
     "jotai": "^2.12.2",
     "ky": "^1.7.5",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.16.0",

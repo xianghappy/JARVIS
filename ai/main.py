@@ -2,8 +2,9 @@ from openai import OpenAI
 import os
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
-
+from utils.streaming import generate_streaming_str
 # 注入环境变量 从.env文件中读取
 from dotenv import load_dotenv
 load_dotenv()
@@ -26,7 +27,7 @@ class ChatModel(BaseModel):
                       {'role': 'user', 'content': '你是谁？'}]
     DASHSCOPE_API_KEY: str = "sk-xxx"
 
-@app.post("/chat", status_code=status.HTTP_200_OK)
+@app.post("/chat", status_code=status.HTTP_200_OK, response_class=StreamingResponse)
 async def create_chat(chat: ChatModel):
     client = OpenAI(
         api_key=chat.DASHSCOPE_API_KEY,
@@ -37,16 +38,18 @@ async def create_chat(chat: ChatModel):
         messages=chat.messages,  # 使用传递的消息
         stream=True  # 使用传递的流式输出方式
     )
-    response_data = []
-    for chunk in completion:
-        # 如果chunk.choices为空，则打印usage
-        if not chunk.choices:
-            response_data.append({"usage": chunk.usage})
-        else:
-            delta = chunk.choices[0].delta
-            # 收集思考过程
-            response_data.append({"delta": delta})
-    return response_data
+
+    async def generate_stream():
+        for chunk in completion:
+            # 如果chunk.choices为空，则打印usage
+            if not chunk.choices:
+                yield generate_streaming_str(chunk.usage)
+            else:
+                delta = chunk.choices[0].delta
+                # 收集思考过程
+                yield generate_streaming_str(delta)
+    
+    return StreamingResponse(generate_stream(), media_type="text/event-stream")
 
 if __name__ == '__main__':
     import uvicorn

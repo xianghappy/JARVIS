@@ -10,7 +10,10 @@
 - React 组件库 [Mantine](https://mantine.dev/getting-started/)
 - React 状态管理工具 [Jotai](https://www.jotai.com.cn/)
 - CSS 框架 [Tailwindcss](https://www.tailwindcss.cn/)
+  - CSS 类名构建工具 [clsx](https://github.com/lukeed/clsx)
 - Http 客户端 [ky](https://github.com/sindresorhus/ky)
+- Markdown 组件 [react-markdown](https://github.com/remarkjs/react-markdown)
+  - 处理 GitHub Flavored Markdown (GFM) 的 remark 插件[remarkGfm](https://github.com/remarkjs/remark-gfm)
 
 ## 安装环境
 
