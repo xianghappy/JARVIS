@@ -1,3 +1,5 @@
+import { createTheme, MantineProvider } from "@mantine/core";
+import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
   Meta,
@@ -5,8 +7,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
 
+import "@mantine/core/styles.css";
 import "./tailwind.css";
 
 export const links: LinksFunction = () => [
@@ -21,6 +23,10 @@ export const links: LinksFunction = () => [
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
 ];
+
+const theme = createTheme({
+  /** Put your mantine theme override here */
+});
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -41,5 +47,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <MantineProvider theme={theme}>
+      <Outlet />
+    </MantineProvider>
+  );
 }

@@ -1,6 +1,7 @@
 from openai import OpenAI
 import os
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, status
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 # 注入环境变量 从.env文件中读取
@@ -12,21 +13,28 @@ port=os.getenv("DASHSCOPE_PORT")
 
 app = FastAPI()
 
-class RequestModel(BaseModel):
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+class ChatModel(BaseModel):
     model: str = "qwq-32b"
     messages: list = [{'role': 'system', 'content': 'You are a helpful assistant.'},
                       {'role': 'user', 'content': '你是谁？'}]
     DASHSCOPE_API_KEY: str = "sk-xxx"
 
-@app.post("/response", summary="获取模型响应", description="根据提供的模型名称和消息获取响应")
-async def get_response(request: RequestModel):
+@app.post("/chat", status_code=status.HTTP_200_OK)
+async def create_chat(chat: ChatModel):
     client = OpenAI(
-        api_key=request.DASHSCOPE_API_KEY,
+        api_key=chat.DASHSCOPE_API_KEY,
         base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",  # 填写DashScope SDK的base_url
     )
     completion = client.chat.completions.create(
-        model=request.model,  # 使用传递的模型名称
-        messages=request.messages,  # 使用传递的消息
+        model=chat.model,  # 使用传递的模型名称
+        messages=chat.messages,  # 使用传递的消息
         stream=True  # 使用传递的流式输出方式
     )
     response_data = []
@@ -42,4 +50,4 @@ async def get_response(request: RequestModel):
 
 if __name__ == '__main__':
     import uvicorn
-    uvicorn.run(app, host=host, port=port)
+    uvicorn.run(app, host=host, port=int(port))
