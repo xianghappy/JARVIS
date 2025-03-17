@@ -1,0 +1,5 @@
+# -*- coding: utf-8 -*-
+fastapi==0.95.1
+uvicorn==0.22.0
+dashscope==1.1.0  # 请根据实际版本号调整
+python-dotenv==1.0.0  # 如果你使用了 dotenv 加载环境变量
