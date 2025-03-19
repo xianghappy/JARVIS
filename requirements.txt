@@ -1,0 +1,8 @@
+fastapi==0.104.1
+uvicorn==0.24.0
+python-dotenv==1.0.0
+openai==1.3.5
+pydantic==2.5.2
+yfinance==0.2.31
+akshare==1.11.77
+pandas==2.1.3 
