@@ -27,6 +27,11 @@
     },
 
     // Vite takes care of building everything, not tsc.
-    "noEmit": true
+    "noEmit": true,
+
+    // linting
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   }
 }

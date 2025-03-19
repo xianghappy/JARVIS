@@ -2,9 +2,8 @@
 
 ## 技术栈
 
-- 构建 API 框架[fastapi](https://fastapi.tiangolo.com/zh/)
-
-- [通义千问 免费百万token] (https://help.aliyun.com/zh/model-studio/getting-started/what-is-model-studio)
+- 构建 API 框架 [fastapi](https://fastapi.tiangolo.com/zh/)
+- [通义千问 免费百万token](https://help.aliyun.com/zh/model-studio/getting-started/what-is-model-studio)
 
 ## 环境
 

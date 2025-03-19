@@ -3,15 +3,14 @@ import clsx from "clsx";
 import { memo, useState } from "react";
 
 export interface ChatInputProps {
-  value: string;
   className?: string;
-  onChange: (value: string) => void;
-  onSend: () => Promise<void>;
+  onSend: (inputValue: string) => Promise<void>;
 }
 
 export default memo(function ChatInput(props: ChatInputProps) {
-  const { value, className, onChange, onSend } = props;
+  const { className, onSend } = props;
 
+  const [inputValue, setInputValue] = useState("");
   const [sending, setSending] = useState(false);
 
   return (
@@ -19,14 +18,17 @@ export default memo(function ChatInput(props: ChatInputProps) {
       <TextInput
         className="flex-1"
         placeholder="Ask me anything"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
+        disabled={sending}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
       />
       <Button
+        disabled={sending}
         onClick={async () => {
           try {
             setSending(true);
-            await onSend();
+            await onSend(inputValue);
+            setInputValue("");
           } finally {
             setSending(false);
           }

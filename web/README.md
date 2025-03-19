@@ -14,6 +14,8 @@
 - Http 客户端 [ky](https://github.com/sindresorhus/ky)
 - Markdown 组件 [react-markdown](https://github.com/remarkjs/react-markdown)
   - 处理 GitHub Flavored Markdown (GFM) 的 remark 插件[remarkGfm](https://github.com/remarkjs/remark-gfm)
+- TypeScript 优先的模式声明和验证库 [zod](https://zod.dev/?id=introduction)
+- 生成唯一标识符库 [uuid](https://github.com/uuidjs/uuid)
 
 ## 安装环境
 

@@ -1,11 +1,16 @@
-import { Text } from "@mantine/core";
 import type { MetaFunction } from "@remix-run/node";
+import { useAtomValue, useSetAtom } from "jotai";
 import ky from "ky";
-import { useState } from "react";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import {
+  chatMessagesAtom,
+  insertLoadedAssistantChatMessageAtom,
+  insertUserChatMessageAtom,
+  loadingAssistantChatMessageAtom,
+  updateLoadingAssistantChatMessageAtom,
+} from "~/atoms/chat";
 import ChatInput from "~/components/ChatInput";
-import { StreamingItem } from "~/models/Streaming";
+import ChatMessage from "~/components/ChatMessage";
+import { StreamingItem } from "~/schemas/streaming";
 
 export const meta: MetaFunction = () => {
   return [
@@ -15,39 +20,41 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const [value, setValue] = useState("");
-
-  const [reasoningContent, setReasoningContent] = useState("");
-  const [content, setContent] = useState("");
+  const chatMessages = useAtomValue(chatMessagesAtom);
+  const insertUserChatMessage = useSetAtom(insertUserChatMessageAtom);
+  const loadingAssistantChatMessage = useAtomValue(
+    loadingAssistantChatMessageAtom
+  );
+  const updateLoadingAssistantChatMessage = useSetAtom(
+    updateLoadingAssistantChatMessageAtom
+  );
+  const insertLoadedAssistantChatMessage = useSetAtom(
+    insertLoadedAssistantChatMessageAtom
+  );
 
   return (
     <div className="flex h-screen p-4">
       <div className="flex w-[260px]">sidebar</div>
 
       <div className="flex-1 flex flex-col items-center gap-2 p-4 bg-white rounded-lg">
-        <div className="flex-1 flex flex-col w-full overflow-y-auto">
-          <Text size="xs" c="dimmed" bg="gray.1">
-            {reasoningContent}
-          </Text>
-          <Markdown remarkPlugins={[remarkGfm]}>{content}</Markdown>
+        <div className="flex-1 flex flex-col gap-2 w-full">
+          {chatMessages.map((message) => (
+            <ChatMessage key={message.id} value={message} />
+          ))}
+
+          {loadingAssistantChatMessage && (
+            <ChatMessage value={loadingAssistantChatMessage} />
+          )}
         </div>
 
         <ChatInput
           className="w-1/2"
-          value={value}
-          onChange={setValue}
-          onSend={async () => {
-            setReasoningContent("");
-            setContent("");
+          onSend={async (inputValue: string) => {
+            const newChatMessages = insertUserChatMessage(inputValue);
 
             const response = await ky.post("http://localhost:8001/chat", {
               json: {
-                messages: [
-                  {
-                    role: "user",
-                    content: value,
-                  },
-                ],
+                messages: newChatMessages,
               },
             });
 
@@ -70,18 +77,15 @@ export default function Index() {
                     text.substring(5).trim()
                   ) as StreamingItem;
 
-                  if (item.reasoning_content) {
-                    setReasoningContent(
-                      (prev) => prev + item.reasoning_content
-                    );
-                  }
-
-                  if (item.content) {
-                    setContent((prev) => prev + item.content);
-                  }
+                  updateLoadingAssistantChatMessage(
+                    item.content,
+                    item.reasoningContent
+                  );
                 }
               });
             }
+
+            insertLoadedAssistantChatMessage();
           }}
         />
       </div>
