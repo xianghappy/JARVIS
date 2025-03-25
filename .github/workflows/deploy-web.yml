@@ -35,3 +35,26 @@ jobs:
             pnpm install
             pnpm run build
             pm2 restart web || pm2 start npm --name "web" -- start
+
+      - name: Install Python dependencies And Run
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }} 
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  
+          port: 22
+          script: |
+            cd /opt/JARVIS/ai
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+            python3 -m venv venv
+            source venv/bin/activate
+            pip install -r requirements.txt
+            python3 main.py 
+         
+
+
+
+
+
+
