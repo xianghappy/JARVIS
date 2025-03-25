@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ws client测试前台页面</title>
+</head>
+<body>
+<p style="border: 1px solid black; width: 600px;height: 800px;" id="talkMsg"></p>
+<input id="message"/><button id="sendBtn" onclick="sendMsg()">发送</button>
+</body>
+<script>
+    let ws = new WebSocket("ws://localhost:8080/api/ws/sendAll")
+    ws.onopen=function () {
+    }
+    ws.onmessage=function (message) {
+        document.getElementById("talkMsg").innerHTML = message.data
+        console.log(message.data)
+    }
+    function sendMsg() {
+        ws.send(document.getElementById("message").value)
+        document.getElementById("message").value=""
+    }
+</script>
+</html>

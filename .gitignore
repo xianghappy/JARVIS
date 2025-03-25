@@ -1,4 +1,9 @@
 # Python virtual environment
 .venv/
 venv/
-ENV/ 
+ENV/
+
+.idea
+*.iws
+*.iml
+*.ipr
