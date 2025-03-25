@@ -1,6 +1,8 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useAtomValue, useSetAtom } from "jotai";
 import ky from "ky";
+import { useLayoutEffect } from "react";
+import { authServiceAtom } from "~/atoms/app";
 import {
   chatMessagesAtom,
   insertLoadedAssistantChatMessageAtom,
@@ -20,6 +22,8 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const authService = useAtomValue(authServiceAtom);
+
   const chatMessages = useAtomValue(chatMessagesAtom);
   const insertUserChatMessage = useSetAtom(insertUserChatMessageAtom);
   const loadingAssistantChatMessage = useAtomValue(
@@ -31,6 +35,10 @@ export default function Index() {
   const insertLoadedAssistantChatMessage = useSetAtom(
     insertLoadedAssistantChatMessageAtom
   );
+
+  useLayoutEffect(() => {
+    authService.signIn();
+  }, []);
 
   return (
     <div className="flex h-screen p-4">

@@ -8,6 +8,7 @@
 - 打包工具 [Vite](https://vitejs.cn/vite3-cn/guide/)
 - 基于 React 的全栈前端框架 [Remix](https://remix.org.cn/docs/en/main)
 - React 组件库 [Mantine](https://mantine.dev/getting-started/)
+- React 图标库 [tabler icons](https://tabler.io/icons)
 - React 状态管理工具 [Jotai](https://www.jotai.com.cn/)
 - CSS 框架 [Tailwindcss](https://www.tailwindcss.cn/)
   - CSS 类名构建工具 [clsx](https://github.com/lukeed/clsx)

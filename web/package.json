@@ -16,6 +16,7 @@
     "@remix-run/node": "^2.16.0",
     "@remix-run/react": "^2.16.0",
     "@remix-run/serve": "^2.16.0",
+    "@tabler/icons-react": "^3.31.0",
     "clsx": "^2.1.1",
     "isbot": "^4.4.0",
     "jotai": "^2.12.2",
