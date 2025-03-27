@@ -42,7 +42,7 @@ jobs:
         with:
           host: ${{ secrets.ALIYUN_HOST }} 
           username: ${{ secrets.ALIYUN_USERNAME }}
-          key: ${{ secrets.ALIYUN_PASSWORD }}  
+          password: ${{ secrets.ALIYUN_PASSWORD }}  
           port: 22
           script: |
             cd /opt/JARVIS/ai
