@@ -19,8 +19,8 @@ jobs:
           username: ${{ secrets.ALIYUN_USERNAME }}
           password: ${{ secrets.ALIYUN_PASSWORD }}
           port: 22
-          source: "web/*"
-          target: "/opt/JARVIS/web"
+          source: "JARVIS/*"
+          target: "/opt/JARVIS/"
           strip_components: 1
 
       - name: Deploy to Aliyun
