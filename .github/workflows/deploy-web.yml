@@ -19,7 +19,7 @@ jobs:
           username: ${{ secrets.ALIYUN_USERNAME }}
           password: ${{ secrets.ALIYUN_PASSWORD }}
           port: 22
-          source: "web/**"
+          source: "web/*"
           target: "/opt/JARVIS/web"
       
       - name: Copy ai files to Aliyun
@@ -29,7 +29,7 @@ jobs:
           username: ${{ secrets.ALIYUN_USERNAME }}
           password: ${{ secrets.ALIYUN_PASSWORD }}
           port: 22
-          source: "ai/**"
+          source: "ai/*"
           target: "/opt/JARVIS/ai"
       
 
