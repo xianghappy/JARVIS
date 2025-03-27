@@ -9,16 +9,12 @@
 
 - [python](https://www.python.org/downloads/)
 
-## 安装
 
-```shell
-pip install pipreqs
-```
 
 ## 在当前目录生成
 
 ```shell
-pipreqs . --encoding=utf8 --force
+ppip freeze > requirements.txt
 ```
 
 ## 包安装
