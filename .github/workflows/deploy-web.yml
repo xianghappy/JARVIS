@@ -12,16 +12,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Copy to Aliyun
+      - name: Copy web files to Aliyun
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.ALIYUN_HOST }}
           username: ${{ secrets.ALIYUN_USERNAME }}
           password: ${{ secrets.ALIYUN_PASSWORD }}
           port: 22
-          source: "web/*,ai/*"
-          target: "/opt/JARVIS"
-          strip_components: 1
+          source: "web/**"
+          target: "/opt/JARVIS/web"
+      
+      - name: Copy ai files to Aliyun
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.ALIYUN_HOST }}
+          username: ${{ secrets.ALIYUN_USERNAME }}
+          password: ${{ secrets.ALIYUN_PASSWORD }}
+          port: 22
+          source: "ai/**"
+          target: "/opt/JARVIS/ai"
+      
 
 
       - name: Deploy to Aliyun
