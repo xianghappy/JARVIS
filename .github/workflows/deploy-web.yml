@@ -19,9 +19,10 @@ jobs:
           username: ${{ secrets.ALIYUN_USERNAME }}
           password: ${{ secrets.ALIYUN_PASSWORD }}
           port: 22
-          source: "JARVIS/*"
-          target: "/opt/JARVIS/"
+          source: "web/*,ai/*"
+          target: "/opt/JARVIS"
           strip_components: 1
+
 
       - name: Deploy to Aliyun
         uses: appleboy/ssh-action@master
