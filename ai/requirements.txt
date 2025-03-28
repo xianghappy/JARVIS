@@ -1,8 +1,8 @@
-akshare==1.16.50
-fastapi==0.115.11
-openai==1.66.5
+akshare==1.16.64
+fastapi==0.115.12
+openai==1.68.2
 pandas==2.2.3
-pydantic==2.10.6
-python-dotenv==1.0.1
+pydantic==1.10.21
+python-dotenv==1.1.0
 uvicorn==0.34.0
-yfinance==0.2.54
+yfinance==0.2.55
