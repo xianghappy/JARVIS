@@ -14,7 +14,7 @@
 ## 在当前目录生成
 
 ```shell
-ppip freeze > requirements.txt
+pip freeze > requirements.txt
 ```
 
 ## 包安装
