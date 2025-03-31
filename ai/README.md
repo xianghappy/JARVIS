@@ -14,7 +14,7 @@
 ## 在当前目录生成
 
 ```shell
-pip freeze > requirements.txt
+pipreqs . --encoding=utf8 --force
 ```
 
 ## 包安装
