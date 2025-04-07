@@ -2,8 +2,3 @@
 .venv/
 venv/
 ENV/
-
-.idea
-*.iws
-*.iml
-*.ipr

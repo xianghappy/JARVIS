@@ -1,6 +1,8 @@
+import { TextInput } from "@mantine/core";
 import type { MetaFunction } from "@remix-run/node";
 import { useAtomValue, useSetAtom } from "jotai";
 import ky from "ky";
+import { useState } from "react";
 import {
   chatMessagesAtom,
   insertLoadedAssistantChatMessageAtom,
@@ -20,6 +22,8 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const [dashscopeApiKey, setDashscopeApiKey] = useState("");
+
   const chatMessages = useAtomValue(chatMessagesAtom);
   const insertUserChatMessage = useSetAtom(insertUserChatMessageAtom);
   const loadingAssistantChatMessage = useAtomValue(
@@ -47,14 +51,21 @@ export default function Index() {
           )}
         </div>
 
+        {/* TODO: use fancy input component */}
+        <TextInput
+          value={dashscopeApiKey}
+          onChange={(e) => setDashscopeApiKey(e.target.value)}
+        />
+
         <ChatInput
           className="w-1/2"
           onSend={async (inputValue: string) => {
             const newChatMessages = insertUserChatMessage(inputValue);
 
-            const response = await ky.post("http://localhost:8001/chat", {
+            const response = await ky.post("http://localhost:8000/chat", {
               json: {
                 messages: newChatMessages,
+                DASHSCOPE_API_KEY: dashscopeApiKey,
               },
             });
 
