@@ -36,7 +36,7 @@ class ChatModel(BaseModel):
                       {'role': 'user', 'content': 'AAPL 股市的股价'}]
     DASHSCOPE_API_KEY: str = "sk-xxx"
 
-@app.post("/chat", status_code=status.HTTP_200_OK, response_class=StreamingResponse)
+@app.post("/api/chat", status_code=status.HTTP_200_OK, response_class=StreamingResponse)
 async def create_chat(chat: ChatModel):
     # 获取用户输入的工具调用
     user_input = chat.messages[-1]['content']
