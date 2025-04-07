@@ -6,3 +6,8 @@ html,
 body {
   @apply bg-zinc-100;
 }
+
+.tiptap {
+  outline: none !important;
+  background-color: transparent;
+}

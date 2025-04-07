@@ -1,5 +1,4 @@
 import { TextInput } from "@mantine/core";
-import type { MetaFunction } from "@remix-run/node";
 import { useAtomValue, useSetAtom } from "jotai";
 import ky from "ky";
 import { useState } from "react";
@@ -10,18 +9,13 @@ import {
   loadingAssistantChatMessageAtom,
   updateLoadingAssistantChatMessageAtom,
 } from "~/atoms/chat";
-import ChatInput from "~/components/ChatInput";
-import ChatMessage from "~/components/ChatMessage";
+import ChatInput from "~/components/chat/ChatInput";
+import ChatMessage from "~/components/chat/ChatMessage";
+import ChatSetting from "~/components/chat/ChatSetting";
+import ChatUserGroup from "~/components/chat/ChatUserGroup";
 import { StreamingItem } from "~/schemas/streaming";
 
-export const meta: MetaFunction = () => {
-  return [
-    { title: "JARVIS" },
-    { name: "description", content: "Welcome to AI!" },
-  ];
-};
-
-export default function Index() {
+export default function ChatIndex() {
   const [dashscopeApiKey, setDashscopeApiKey] = useState("");
 
   const chatMessages = useAtomValue(chatMessagesAtom);
@@ -37,20 +31,24 @@ export default function Index() {
   );
 
   return (
-    <div className="flex h-screen p-4">
-      <div className="flex w-[260px]">sidebar</div>
+    <div className="flex-1 flex flex-col items-center gap-2 bg-white rounded-lg">
+      <div className="flex items-center px-2 h-[56px] w-full border-b">
+        <ChatUserGroup className="mr-auto" />
 
-      <div className="flex-1 flex flex-col items-center gap-2 p-4 bg-white rounded-lg">
-        <div className="flex-1 flex flex-col gap-2 w-full">
-          {chatMessages.map((message) => (
-            <ChatMessage key={message.id} value={message} />
-          ))}
+        <ChatSetting />
+      </div>
 
-          {loadingAssistantChatMessage && (
-            <ChatMessage value={loadingAssistantChatMessage} />
-          )}
-        </div>
+      <div className="flex-1 flex flex-col gap-2 w-full">
+        {chatMessages.map((message) => (
+          <ChatMessage key={message.id} value={message} />
+        ))}
 
+        {loadingAssistantChatMessage && (
+          <ChatMessage value={loadingAssistantChatMessage} />
+        )}
+      </div>
+
+      <div className="flex justify-center w-full p-4">
         {/* TODO: use fancy input component */}
         <TextInput
           value={dashscopeApiKey}
