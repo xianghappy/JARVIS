@@ -95,6 +95,9 @@ jobs:
           password: ${{ secrets.ALIYUN_PASSWORD }}  
           port: 22
           script: |
+            echo "$timestamp: Creating log directory..."
+            mkdir -p /opt/JARVIS/ai/logs
+            
             echo "$timestamp: 启动新进程..."
             nohup /opt/JARVIS/ai/dist/main > /opt/JARVIS/ai/logs/ai.log 2>&1 &
             nohup_exit_code=$?
