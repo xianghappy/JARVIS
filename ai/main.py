@@ -123,7 +123,7 @@ async def create_chat(chat: ChatModel):
                 else:
                     if not is_answering and delta.content is not None:  # 首次进入回复阶段时打印标题
                         is_answering = True
-                        yield generate_streaming_str({"content": "\n" + "="*20 + "回复内容" + "="*20 + "\n"})
+                        yield generate_streaming_str({"content": "\n" + "="*20 + "回复1内容" + "="*20 + "\n"})
                     
                     if delta.content is not None:
                         answer_content += delta.content
