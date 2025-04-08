@@ -156,4 +156,8 @@ async def create_chat(chat: ChatModel):
 
 if __name__ == '__main__':
     import uvicorn
+    if port is None:
+        port = "8089"
+    if host is None:
+        host = "127.0.0.1"
     uvicorn.run(app, host=host, port=int(port))
