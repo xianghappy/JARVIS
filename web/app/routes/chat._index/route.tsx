@@ -61,7 +61,7 @@ export default function ChatIndex() {
             const newChatMessages = insertUserChatMessage(inputValue);
 
             // TODO: use settings file
-            const response = await ky.post("http://101.132.85.67/api/chat", {
+            const response = await ky.post("http://101.132.85.67/ai/chat", {
               json: {
                 messages: newChatMessages,
                 DASHSCOPE_API_KEY: dashscopeApiKey,
