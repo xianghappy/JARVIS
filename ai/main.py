@@ -36,7 +36,7 @@ class ChatModel(BaseModel):
                       {'role': 'user', 'content': 'AAPL 股市的股价'}]
     DASHSCOPE_API_KEY: str = "sk-xxx"
 
-@app.post("/chat", status_code=status.HTTP_200_OK, response_class=StreamingResponse)
+@app.post("/ai/chat", status_code=status.HTTP_200_OK, response_class=StreamingResponse)
 async def create_chat(chat: ChatModel):
     # 获取用户输入的工具调用
     user_input = chat.messages[-1]['content']
@@ -156,4 +156,8 @@ async def create_chat(chat: ChatModel):
 
 if __name__ == '__main__':
     import uvicorn
+    if port is None:
+        port = "8089"
+    if host is None:
+        host = "127.0.0.1"
     uvicorn.run(app, host=host, port=int(port))

@@ -3,7 +3,4 @@
 venv/
 ENV/
 
-.idea
-*.iws
-*.iml
-*.ipr
+*.pyc

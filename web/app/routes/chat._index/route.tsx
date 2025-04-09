@@ -1,5 +1,7 @@
+import { TextInput } from "@mantine/core";
 import { useAtomValue, useSetAtom } from "jotai";
 import ky from "ky";
+import { useState } from "react";
 import {
   chatMessagesAtom,
   insertLoadedAssistantChatMessageAtom,
@@ -14,6 +16,8 @@ import ChatUserGroup from "~/components/chat/ChatUserGroup";
 import { StreamingItem } from "~/schemas/streaming";
 
 export default function ChatIndex() {
+  const [dashscopeApiKey, setDashscopeApiKey] = useState("");
+
   const chatMessages = useAtomValue(chatMessagesAtom);
   const insertUserChatMessage = useSetAtom(insertUserChatMessageAtom);
   const loadingAssistantChatMessage = useAtomValue(
@@ -45,14 +49,22 @@ export default function ChatIndex() {
       </div>
 
       <div className="flex justify-center w-full p-4">
+        {/* TODO: use fancy input component */}
+        <TextInput
+          value={dashscopeApiKey}
+          onChange={(e) => setDashscopeApiKey(e.target.value)}
+        />
+
         <ChatInput
           className="w-1/2"
           onSend={async (inputValue: string) => {
             const newChatMessages = insertUserChatMessage(inputValue);
 
-            const response = await ky.post("http://localhost:8001/chat", {
+            // TODO: use settings file
+            const response = await ky.post("http://101.132.85.67/ai/chat", {
               json: {
                 messages: newChatMessages,
+                DASHSCOPE_API_KEY: dashscopeApiKey,
               },
             });
 
