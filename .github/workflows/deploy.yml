@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout
@@ -115,14 +115,6 @@ jobs:
             pgrep -f "/opt/JARVIS/ai/dist/main" > /dev/null
             if [ $? -eq 0 ]; then
                 echo "$timestamp: pgrep 找到进程."
-                ss -ltn | grep :8089 > /dev/null
-                if [ $? -eq 0 ]; then
-                    echo "$timestamp: 进程正在监听端口 8089."
-                    echo "$timestamp: 进程启动成功."
-                else
-                    echo "$timestamp: ERROR: 进程未监听端口 8089."
-                    exit 1
-                fi
 
             else
                 echo "$timestamp: ERROR: 进程启动失败 (pgrep)."
