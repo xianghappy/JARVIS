@@ -24,6 +24,7 @@
     "@tiptap/extension-text": "^2.11.5",
     "@tiptap/pm": "^2.11.5",
     "@tiptap/react": "^2.11.5",
+    "axios": "^1.8.4",
     "clsx": "^2.1.1",
     "isbot": "^4.4.0",
     "jotai": "^2.12.2",

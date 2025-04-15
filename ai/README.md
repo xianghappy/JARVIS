@@ -14,6 +14,7 @@
 ## 在当前目录生成
 
 ```shell
+pip install pipreqs
 pipreqs . --encoding=utf8 --force
 ```
 

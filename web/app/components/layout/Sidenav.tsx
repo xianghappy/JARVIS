@@ -1,5 +1,6 @@
 import { Avatar, Button, Text } from "@mantine/core";
 import { memo } from "react";
+import GithubLoginButton from "~/routes/login";
 
 export default memo(function Sidenav() {
   return (
@@ -13,7 +14,7 @@ export default memo(function Sidenav() {
       </div>
       <div className="flex-1 flex flex-col">
         <div className="mt-auto"></div>
-        <Button>Sign In</Button>
+        <GithubLoginButton />
       </div>
     </div>
   );

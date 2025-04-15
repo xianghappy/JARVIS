@@ -9,6 +9,8 @@ from utils.stock import get_stock_info
 # 注入环境变量 从.env文件中读取
 from dotenv import load_dotenv
 import json
+from githubCallback import router as github_router
+
 load_dotenv()
 
 
@@ -23,11 +25,14 @@ port=os.getenv("DASHSCOPE_PORT")
 
 app = FastAPI()
 
+# 更新 CORS 配置
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=["http://localhost:8000"],  # 只允许前端域名
+    allow_credentials=True,  # 允许携带认证信息
+    allow_methods=["*"],  # 允许所有方法
+    allow_headers=["*"],  # 允许所有头部
+    expose_headers=["*"],  # 允许暴露所有头部
 )
 
 class ChatModel(BaseModel):
@@ -153,6 +158,8 @@ async def create_chat(chat: ChatModel):
                             yield generate_streaming_str({"tool_calls": [tool_info[index]]})
     
     return StreamingResponse(generate_stream(), media_type="text/event-stream")
+
+app.include_router(github_router, prefix="")  
 
 if __name__ == '__main__':
     import uvicorn
