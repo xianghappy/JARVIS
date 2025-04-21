@@ -34,18 +34,19 @@ security = HTTPBearer()
 class GitHubCode(BaseModel):
     code: str
 
-def verify_jwt(credentials: HTTPAuthorizationCredentials = Depends(security)):
+
+@router.get("/api/protected")
+async def protected_route(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    token = credentials.credentials
+    print(f"Received token: {token}")
     try:
-        payload = jwt.decode(credentials.credentials, JWT_SECRET, algorithms=["HS256"])
-        return payload
+        data = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
+        print(data)
     except JWTError:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid token",
         )
-
-@router.get("/api/protected")
-async def protected_route(token: str = Depends(verify_jwt)):
     return {"message": "You are authenticated"}
 
 @router.post("/auth/github")

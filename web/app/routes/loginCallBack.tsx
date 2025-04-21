@@ -24,23 +24,26 @@ export default function GitHubAuthHandler() {
           })
           .then((res) => {
             console.log(res);
-            if (res.status === 307) {
-              // 处理重定向
-              const redirectUrl = res.headers.location;
-              if (redirectUrl) {
-                const tokenMatch = redirectUrl.match(/token=([^&]+)/);
-                if (tokenMatch && tokenMatch[1]) {
-                  const token = tokenMatch[1];
-                  localStorage.setItem("jwt_token", token);
-                  navigate("/chat");
-                } else {
-                  setError("无法获取认证令牌");
+            //验证token
+            const token = res.data;
+            if (token) {
+              //验证token
+              //访问/api/protected
+              axios.get("http://localhost:8089/api/protected", {
+                headers: {
+                  Authorization: `Bearer ${token}`
                 }
-              } else {
-                setError("重定向URL无效");
-              }
+              }).then((res) => {
+                console.log(res);
+                // 验证成功后存储token
+                localStorage.setItem("jwt_token", token);
+                navigate("/chat");
+              }).catch((err) => {
+                console.error("Token验证失败:", err);
+                setError("Token验证失败");
+              });
             } else {
-              setError("意外的响应状态");
+              setError("无法获取认证令牌");
             }
           })
           .catch((err: Error) => {
