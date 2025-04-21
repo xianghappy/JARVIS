@@ -1,6 +1,7 @@
 akshare==1.16.72
 fastapi==0.115.12
-openai==1.69.0
+httpx==0.28.1
+openai==1.72.0
 pandas==2.2.3
 pydantic==1.10.21
 python-dotenv==1.1.0

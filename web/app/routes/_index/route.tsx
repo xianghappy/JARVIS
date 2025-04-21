@@ -9,5 +9,5 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  return <Navigate to="/chat" />;
+  return <Navigate to="/login" />;
 }
